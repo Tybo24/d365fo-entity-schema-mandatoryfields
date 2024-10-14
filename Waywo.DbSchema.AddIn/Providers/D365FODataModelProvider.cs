@@ -405,10 +405,12 @@ namespace Waywo.DbSchema.Providers
         {
             var manifest = this.provider.ModelManifest;
 
-            var models = manifest.ListModels();
+            var modelNames = manifest.ListModelInfos()
+                                     .Select(m => m.DisplayName)
+                                     .OrderBy(x => x)
+                                     .ToList();
 
-            return models.OrderBy(x => x).ToList();
-
+            return modelNames;
         }
     }
 }
